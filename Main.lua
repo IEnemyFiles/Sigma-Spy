@@ -3,8 +3,8 @@ local Parameters = {...}
 local Overwrites = Parameters[1]
 local Configuration = {
 	UseWorkspace = false, 
-	RepoUrl = "https://raw.githubusercontent.com/IEnemyFiles/Sigma-Spy/refs/heads/main",
-	ParserUrl = "https://raw.githubusercontent.com/depthso/Roblox-parser/refs/heads/main"
+	RepoUrl = "https://github.com/IEnemyFiles/Sigma-Spy/tree/main",
+	ParserUrl = "https://github.com/depthso/Roblox-parser/tree/main"
 }
 
 --// Load overwrites
