@@ -3,8 +3,8 @@ local Parameters = {...}
 local Overwrites = Parameters[1]
 local Configuration = {
 	UseWorkspace = false, 
-	RepoUrl = "https://github.com/IEnemyFiles/Sigma-Spy/tree/main",
-	ParserUrl = "https://github.com/depthso/Roblox-parser/tree/main"
+	RepoUrl = "https://raw.githubusercontent.com/IEnemyFiles/Sigma-Spy/refs/heads/main",
+	ParserUrl = "https://raw.githubusercontent.com/depthso/Roblox-parser/refs/heads/main/dist/Main.luau"
 }
 
 --// Load overwrites
@@ -40,16 +40,16 @@ Files:Init({
 --// Modules
 local Scripts = {
 	--// User configurations
-	Config = Files:GetModule("Sigma Spy/Config", "Config"),
-	ReturnSpoofs = Files:GetModule("Sigma Spy/Return spoofs", "Return Spoofs"),
+	Config = Files:GetModule("Sigma-Spy/Config", "Config"),
+	ReturnSpoofs = Files:GetModule("Sigma-Spy/Return spoofs", "Return Spoofs"),
 
 	--// Libraries
-	Process = Files:GetModule("lib/Process"),
-	Hook = Files:GetModule("lib/Hook"),
-	Flags = Files:GetModule("lib/Flags"),
-	Ui = Files:GetModule("lib/Ui"),
-	Generation = Files:GetModule("lib/Generation"),
-	Communication = Files:GetModule("lib/Communication")
+	Process = Files:GetModule("lib/Process.lua"),
+	Hook = Files:GetModule("lib/Hook.lua"),
+	Flags = Files:GetModule("lib/Flags.lua"),
+	Ui = Files:GetModule("lib/Ui.lua"),
+	Generation = Files:GetModule("lib/Generation.lua"),
+	Communication = Files:GetModule("lib/Communication.lua")
 }
 
 --// Services
@@ -113,8 +113,8 @@ end)
 --// Beta alert modal
 Ui:ShowModal({
 	"<b>Attention!</b>",
-	"Remake Sigma Spy is in BETA, please expect issues\n",
-	"Report any issues to the Github page (IEnemyFiles/Sigma-Spy)\n",
+	"Sigma Spy is in BETA, please expect issues\n",
+	"Report any issues to the Github page (depthso/Sigma-Spy)\n",
 	"Many thanks!"
 })
 
