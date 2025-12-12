@@ -36,7 +36,7 @@ local Folder = Files.FolderName
 local Scripts = {
 	--// User configurations
 	Config = Files:GetModule(`{Folder}/Config`, "Config"),
-	ReturnSpoofs = Files:GetModule(`{Folder}/ReturnSpoofs`, "Return Spoofs"),
+	ReturnSpoofs = Files:GetModule(`{Folder}/ReturnSpoofs`, "ReturnSpoofs"),
 	Configuration = Configuration,
 	Files = Files,
 
