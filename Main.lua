@@ -2,10 +2,10 @@
 local Configuration = {
 	UseWorkspace = false, 
 	NoActors = false,
-	FolderName = "Sigma Spy",
+	FolderName = "Enemy Spy",
 	RepoUrl = [[https://raw.githubusercontent.com/IEnemyFiles/Sigma-Spy/refs/heads/main]],
 	ParserUrl = [[https://raw.githubusercontent.com/depthso/Roblox-parser/refs/heads/main/dist/Main.luau]],
-    Directory = "Sigma Spy"
+    Directory = "Enemy Spy"
 }
 
 --// Load overwrites
@@ -36,7 +36,7 @@ local Folder = Files.FolderName
 local Scripts = {
 	--// User configurations
 	Config = Files:GetModule(`{Folder}/Config`, "Config"),
-	ReturnSpoofs = Files:GetModule(`{Folder}/Return spoofs`, "Return Spoofs"),
+	ReturnSpoofs = Files:GetModule(`{Folder}/ReturnSpoofs`, "Return Spoofs"),
 	Configuration = Configuration,
 	Files = Files,
 
