@@ -4,7 +4,7 @@ local Configuration = {
 	NoActors = false,
 	FolderName = "Enemy Spy",
 	RepoUrl = [[https://raw.githubusercontent.com/IEnemyFiles/Sigma-Spy/refs/heads/main]],
-	ParserUrl = [[https://raw.githubusercontent.com/depthso/Roblox-parser/refs/heads/main/dist/Main.luau]],
+	ParserUrl = [[https://raw.githubusercontent.com/IEnemyFiles/Roblox-Parser/refs/heads/main/Main.luau]],
     Directory = "Enemy Spy"
 }
 
