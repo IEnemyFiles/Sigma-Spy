@@ -26,7 +26,7 @@ local Services = setmetatable({}, {
 })
 
 --// Files module
-local Files = loadstring(game:HttpGet(`{Configuration.RepoUrl}/lib/Files.lua`))()
+local Files = loadstring(game:HttpGet('{Configuration.RepoUrl}/lib/Files.lua'))()
 Files:PushConfig(Configuration)
 Files:Init({
 	Services = Services
@@ -35,18 +35,18 @@ Files:Init({
 local Folder = Files.FolderName
 local Scripts = {
 	--// User configurations
-	Config = Files:GetModule(`{Folder}/Config`, "Config"),
-	ReturnSpoofs = Files:GetModule(`{Folder}/ReturnSpoofs`, "ReturnSpoofs"),
+	Config = Files:GetModule('{Folder}/Config', "Config"),
+	ReturnSpoofs = Files:GetModule('{Folder}/ReturnSpoofs', "ReturnSpoofs"),
 	Configuration = Configuration,
 	Files = Files,
 
 	--// Libraries
-	Process = game:HttpGet(`{Configuration.RepoUrl}/lib/Process.lua`),
-	Hook = game:HttpGet(`{Configuration.RepoUrl}/lib/Hook.lua`),
-	Flags = game:HttpGet(`{Configuration.RepoUrl}/lib/Flags.lua`),
-	Ui = game:HttpGet(`{Configuration.RepoUrl}/lib/Ui.lua`),
-	Generation = game:HttpGet(`{Configuration.RepoUrl}/lib/Generation.lua`),
-	Communication = game:HttpGet(`{Configuration.RepoUrl}/lib/Communication.lua`)
+	Process = game:HttpGet('{Configuration.RepoUrl}/lib/Process.lua'),
+	Hook = game:HttpGet('{Configuration.RepoUrl}/lib/Hook.lua'),
+	Flags = game:HttpGet('{Configuration.RepoUrl}/lib/Flags.lua'),
+	Ui = game:HttpGet('{Configuration.RepoUrl}/lib/Ui.lua'),
+	Generation = game:HttpGet('{Configuration.RepoUrl}/lib/Generation.lua'),
+	Communication = game:HttpGet('{Configuration.RepoUrl}/lib/Communication.lua')
 }
 
 --// Services
@@ -116,19 +116,22 @@ Ui:BeginLogService()
 local ActorCode = Files:MakeActorScript(Scripts, ChannelId)
 Hook:LoadHooks(ActorCode, ChannelId)
 
-local EnablePatches = Ui:AskUser({
-	Title = "Enable function patches?",
-	Content = {
-		"On some executors, function patches can prevent common detections that executor has",
-		"By enabling this, it MAY trigger hook detections in some games, this is why you are asked.",
-		"If it doesn't work, rejoin and press 'No'",
-		"",
-		"(This does not affect game functionality)"
-	},
-	Options = {"Yes", "No"}
-}) == "Yes"
+task.spawn(function()
+    -- Meminta pilihan user secara asinkron (tidak membuat layar macet)
+    local Response = Ui:AskUser({
+        Title = "Enable function patches?",
+        Content = {
+            "On some executors, function patches can prevent common detections that executor has",
+            "By enabling this, it MAY trigger hook detections in some games, this is why you are asked.",
+            "If it doesn't work, rejoin and press 'No'",
+            "",
+            "(This does not affect game functionality)"
+        },
+        Options = {"Yes", "No"}
+    })
 
---// Begin hooks
-Event:Fire("BeginHooks", {
-	PatchFunctions = EnablePatches
-})
+    -- Jalankan hook hanya setelah user memberikan jawaban
+    Event:Fire("BeginHooks", {
+        PatchFunctions = (Response == "Yes")
+    })
+end)
