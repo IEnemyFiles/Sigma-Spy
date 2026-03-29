@@ -5,10 +5,10 @@ type table = {
 --// Module
 local Files = {
 	UseWorkspace = false,
-	Folder = "Sigma spy",
+	Folder = "EnemySaga Spy",
 	RepoUrl = nil,
 	FolderStructure = {
-		["Sigma Spy"] = {
+		["EnemySaga Spy"] = {
 			"assets",
 		}
 	}
