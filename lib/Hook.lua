@@ -1,10 +1,3 @@
---!nolint DeprecatedApi
-
---[[
-	Taking my methods 💖💖
-	I love a paster and a skid, puts disgust in my face
-]]
-
 local Hook = {
 	OriginalNamecall = nil,
 	OriginalIndex = nil,
@@ -41,28 +34,25 @@ end
 
 --// The callback is expected to return a nil value sometimes which should be ingored
 local HookMiddle = newcclosure(function(OriginalFunc, Callback, AlwaysTable: boolean?, ...)
-    -- 1. Anti-crash (Sudah benar)
-    if checkcaller() then 
-        return OriginalFunc(...) 
-    end
+	--// Invoke callback and check for a reponce otherwise ignored
+	local ReturnValues = Callback(...)
+	if ReturnValues then
+		--// Unpack
+		if not AlwaysTable then
+			return Process:Unpack(ReturnValues)
+		end
 
-    -- 2. Jalankan callback spy
-    local ReturnValues = Callback(...)
-    if ReturnValues then
-        if not AlwaysTable then
-            return Process:Unpack(ReturnValues)
-        end
-        return ReturnValues
-    end
+		--// Return packed responce
+		return ReturnValues
+	end
 
-    -- 3. Jalankan fungsi asli HANYA SEKALI dan simpan hasilnya
-    local Result = {OriginalFunc(...)}
+	--// Return packed responce
+	if AlwaysTable then
+		return {OriginalFunc(...)}
+	end
 
-    if AlwaysTable then
-        return Result
-    else
-        return unpack(Result)
-    end
+	--// Unpacked
+	return OriginalFunc(...)
 end)
 
 local function Merge(Base: table, New: table)
