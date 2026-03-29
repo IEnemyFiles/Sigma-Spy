@@ -406,8 +406,8 @@ function Process:GetScriptFromFunc(Func: (...any) -> ...any)
     local Success, ENV = pcall(getfenv, Func)
     if not Success then return end
     
-    --// Blacklist sigma spy
-    if self:IsSigmaSpyENV(ENV) then return end
+    --// Blacklist EnemySaga Spy
+    if self:IsEnemySagaSpyENV(ENV) then return end
 
     return rawget(ENV, "script")
 end
@@ -456,7 +456,7 @@ function Process:FilterConnections(Signal: RBXScriptSignal): table
     return Processed
 end
 
-function Process:IsSigmaSpyENV(Env: table): boolean
+function Process:IsEnemySagaSpyENV(Env: table): boolean
     return Env == SigmaENV
 end
 
