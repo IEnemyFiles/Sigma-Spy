@@ -121,8 +121,6 @@ function Hook:HookMetaMethod(Object: Instance, Call: string, Callback: MetaFunc)
 	return self:HookMetaCall(Object, Call, Func)
 end
 
---// This includes a few patches for executor functions that result in detection
---// This isn't bulletproof since some functions like hookfunction I can't patch
 --// By the way, thanks for copying this guys! Super appreciate the copycat
 function Hook:PatchFunctions()
 	--// Check if this function is disabled in the configuration
@@ -244,10 +242,30 @@ function Hook:BeginHooks()
 	--// Hook Remote functions
 	self:HookRemoteIndexes()
 
-	--// Namecall hook
+	--// ==================== ANTI-LAG THROTTLE (keeps Actors working) ====================
+	local LastFire = {}                    -- track last fire time per remote
+	local ThrottleTime = (Configuration and Configuration.ThrottleTime) or 0.05
+	local MaxLogsPerFrame = (Configuration and Configuration.MaxLogsPerFrame) or 40
+
+	--// Namecall hook WITH throttle
 	local OriginalNameCall
 	OriginalNameCall = self:HookMetaMethod(game, "__namecall", function(self, ...)
 		local Method = getnamecallmethod()
+
+		--// Only throttle the heavy FireServer / InvokeServer calls
+		if Method == "FireServer" or Method == "InvokeServer" then
+			local now = tick()
+			local remoteKey = tostring(self) .. ":" .. Method   -- unique key per remote
+
+			--// Skip spammy remotes (this is what was freezing you)
+			if LastFire[remoteKey] and (now - LastFire[remoteKey]) < ThrottleTime then
+				return OriginalNameCall(self, ...)   -- call original, skip logging
+			end
+
+			LastFire[remoteKey] = now
+		end
+
+		--// Normal processing (only for allowed calls)
 		return ProcessRemote(OriginalNameCall, "__namecall", self, Method, ...)
 	end)
 
