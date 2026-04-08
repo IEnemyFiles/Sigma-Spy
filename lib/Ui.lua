@@ -1,11 +1,11 @@
 local Ui = {
 	DefaultEditorContent = [=[--[[
-	EnemySaga Spy, written by depso
+	Sigma Spy, written by depso
 	Hooks rewritten and many more fixes!
 
 	Discord: https://discord.gg/bkUkm2vSbv
 ]]]=],
-	LogLimit = 100,
+	LogLimit = 50,
     SeasonLabels = { 
         January = "⛄ %s ⛄", 
         February = "🌨️ %s 🏂", 
@@ -25,7 +25,7 @@ local Ui = {
 		["Desktop"] = UDim2.fromOffset(600, 400),
 	},
     BaseConfig = {
-        Theme = "EnemySagaSpy",
+        Theme = "SigmaSpy",
         NoScroll = true,
     },
 	OptionTypes = {
@@ -89,7 +89,7 @@ local ActiveData = nil
 local RemotesCount = 0
 
 local TextFont = Font.fromEnum(Enum.Font.Code)
-local FontSuccess = false
+local FontSuccess = true
 local CommChannel
 
 function Ui:Init(Data)
@@ -147,7 +147,7 @@ function Ui:LoadFont()
 	--// Create custom FontFace
 	local NewFont = Font.new(AssetId)
 	TextFont = NewFont
-	FontSuccess = true
+	FontSuccess = false
 end
 
 function Ui:SetFontFile(FontFile: string)
@@ -156,13 +156,6 @@ end
 
 function Ui:FontWasSuccessful()
 	if FontSuccess then return end
-
-	--// Error message
-	self:ShowModal({
-		"Unfortunately your executor was unable to download the font and therefore switched to the Dark theme",
-		"\nIf you would like to use the ImGui theme, \nplease download the font (assets/ProggyClean.ttf)",
-		"and put put it in your workspace folder\n(EnemySaga Spy/assets)"
-	})
 end
 
 function Ui:LoadReGui()
@@ -170,7 +163,7 @@ function Ui:LoadReGui()
 	ThemeConfig.TextFont = TextFont
 
 	--// ReGui
-	ReGui:DefineTheme("EnemySagaSpy", ThemeConfig)
+	ReGui:DefineTheme("SigmaSpy", ThemeConfig)
 end
 
 type CreateButtons = {
@@ -278,7 +271,7 @@ function Ui:ShowModal(Lines: table)
 
 	--// Modal Window
 	local ModalWindow = Window:PopupModal({
-		Title = "EnemySaga Spy"
+		Title = "Sigma Spy"
 	})
 	ModalWindow:Label({
 		Text = Message,
@@ -295,7 +288,7 @@ end
 
 function Ui:ShowUnsupportedExecutor(Name: string)
 	Ui:ShowModal({
-		"Unfortunately EnemySaga Spy is not supported on your executor",
+		"Unfortunately Sigma Spy is not supported on your executor",
 		"The best free option is Swift (discord.gg/getswiftgg)",
 		`\nYour executor: {Name}`
 	})
@@ -303,7 +296,7 @@ end
 
 function Ui:ShowUnsupported(FuncName: string)
 	Ui:ShowModal({
-		"Unfortunately EnemySaga Spy is not supported on your executor",
+		"Unfortunately Sigma Spy is not supported on your executor",
 		`\nMissing function: {FuncName}`
 	})
 end
@@ -393,7 +386,7 @@ function Ui:CreateElements(Parent, Options)
 	end
 end
 
---// Boiiii what did you say about EnemySaga Spy 💀💀
+--// Boiiii what did you say about Sigma Spy 💀💀
 function Ui:DisplayAura()
     local Window = self.Window
     local Rand = self.RandomSeed
@@ -403,7 +396,7 @@ function Ui:DisplayAura()
     local AURADELAY = Rand:NextInteger(1, 5)
 
 	--// Title
-	local Title = `EnemySaga Spy | AURA: {AURA}`
+	local Title = `Sigma Spy | AURA: {AURA}`
 	local Seasonal = self:TurnSeasonal(Title)
     Window:SetTitle(Seasonal)
 
@@ -586,7 +579,7 @@ function Ui:AddDetailsSection(OptionsTab)
 	OptionsTab:Separator({Text="Information"})
 	OptionsTab:BulletText({
 		Rows = {
-			"EnemySaga Spy - Written by depso!",
+			"Sigma spy - Written by depso!",
 			"Libraries: Roblox-Parser, Dear-ReGui",
 			"Thank you syn.lua for suggesting I make this"
 		}
@@ -635,7 +628,7 @@ function Ui:MakeEditorTab(InfoSelector)
 				Text = "Run",
 				Callback = function()
 					local Script = CodeEditor:GetText()
-					local Func, Error = loadstring(Script, "EnemySagaSpy-USERSCRIPT")
+					local Func, Error = loadstring(Script, "SigmaSpy-USERSCRIPT")
 
 					--// Syntax check
 					if not Func then
@@ -662,7 +655,7 @@ function Ui:MakeEditorTab(InfoSelector)
 				Text = "Pop-out",
 				Callback = function()
 					local Script = CodeEditor:GetText()
-					local Tile = ActiveData and ActiveData.Task or "EnemySaga Spy"
+					local Tile = ActiveData and ActiveData.Task or "Sigma Spy"
 					self:MakeEditorPopoutWindow(Script, {
 						Title = Tile
 					})
@@ -724,7 +717,7 @@ function Ui:EditFile(FilePath: string, InFolder: boolean, OnSaveFunc: ((table, s
 	local Folder = Files.FolderName
 	local CodeEditor, Window
 
-	--// Relative to EnemySaga Spy folder
+	--// Relative to Sigma Spy folder
 	if InFolder then
 		FilePath = `{Folder}/{FilePath}`
 	end
@@ -738,7 +731,7 @@ function Ui:EditFile(FilePath: string, InFolder: boolean, OnSaveFunc: ((table, s
 			Text = "Save",
 			Callback = function()
 				local Script = CodeEditor:GetText()
-				local Success, Error = loadstring(Script, "EnemySagaSpy-Editor")
+				local Success, Error = loadstring(Script, "SigmaSpy-Editor")
 
 				--// Syntax check
 				if not Success then
@@ -816,7 +809,7 @@ function Ui:MakeTableHeaders(Table, Rows: table)
 end
 
 function Ui:Decompile(Editor: table, Script: Script)
-	local Header = "--BOOIIII THIS IS SO TUFF FLIPPY SKIBIDI AURA (EnemySaga Spy)"
+	local Header = "--BOOIIII THIS IS SO TUFF FLIPPY SKIBIDI AURA (SIGMA SPY)"
 	Editor:SetText("--Decompiling... +9999999 AURA (mango phonk)")
 
 	--// Decompile script
@@ -918,7 +911,7 @@ function Ui:SetFocusedRemote(Data)
 	Data.Selectable:SetSelected(true)
 
 	local function SetIDEText(Content: string, Task: string?)
-		Data.Task = Task or "EnemySaga Spy"
+		Data.Task = Task or "Sigma Spy"
 		CodeEditor:SetText(Content)
 	end
 	local function DataConnection(Name, ...)
