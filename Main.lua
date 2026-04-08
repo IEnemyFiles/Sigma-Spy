@@ -1,6 +1,6 @@
 --// Base Configuration
 local Configuration = {
-	UseWorkspace = false, 
+	UseWorkspace = true, 
 	NoActors = false,           -- ← we KEEP Actors
 	FolderName = "Enemy Spy",
 	RepoUrl = [[https://raw.githubusercontent.com/IEnemyFiles/Sigma-Spy/refs/heads/main]],
