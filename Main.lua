@@ -1,11 +1,16 @@
 --// Base Configuration
 local Configuration = {
 	UseWorkspace = false, 
-	NoActors = false,
+	NoActors = false,           -- ← we KEEP Actors
 	FolderName = "Enemy Spy",
 	RepoUrl = [[https://raw.githubusercontent.com/IEnemyFiles/Sigma-Spy/refs/heads/main]],
 	ParserUrl = [[https://raw.githubusercontent.com/IEnemyFiles/Roblox-Parser/refs/heads/main/Main.luau]],
-    Directory = "Enemy Spy"
+    Directory = "Enemy Spy",
+    
+    --// NEW ANTI-LAG
+    InitialDelay = 1.5,         -- seconds to wait before hooks start
+    MaxLogsPerFrame = 40,       -- how many logs to send per frame
+    ThrottleTime = 0.05,        -- ignore same remote faster than this (seconds)
 }
 
 --// Load overwrites
@@ -126,6 +131,9 @@ local EnablePatches = Ui:AskUser({
 	},
 	Options = {"Yes", "No"}
 }) == "Yes"
+
+--// NEW: Wait a bit so UI is fully ready before hooks start
+task.wait(Configuration.InitialDelay)
 
 --// Begin hooks
 Event:Fire("BeginHooks", {
