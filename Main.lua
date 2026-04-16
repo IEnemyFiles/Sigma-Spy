@@ -1,16 +1,11 @@
 --// Base Configuration
 local Configuration = {
-	UseWorkspace = true, 
-	NoActors = false,           -- ← we KEEP Actors
-	FolderName = "Enemy Spy",
+	UseWorkspace = false, 
+	NoActors = false,
+	FolderName = "Sigma Spy",
 	RepoUrl = [[https://raw.githubusercontent.com/IEnemyFiles/Sigma-Spy/refs/heads/main]],
 	ParserUrl = [[https://raw.githubusercontent.com/IEnemyFiles/Roblox-Parser/refs/heads/main/Main.luau]],
-    Directory = "Enemy Spy",
-    
-    --// NEW ANTI-LAG
-    InitialDelay = 1.5,         -- seconds to wait before hooks start
-    MaxLogsPerFrame = 40,       -- how many logs to send per frame
-    ThrottleTime = 0.05,        -- ignore same remote faster than this (seconds)
+    Directory = "Sigma Spy"
 }
 
 --// Load overwrites
@@ -41,7 +36,7 @@ local Folder = Files.FolderName
 local Scripts = {
 	--// User configurations
 	Config = Files:GetModule(`{Folder}/Config`, "Config"),
-	ReturnSpoofs = Files:GetModule(`{Folder}/ReturnSpoofs`, "ReturnSpoofs"),
+	ReturnSpoofs = Files:GetModule(`{Folder}/Return spoofs`, "Return Spoofs"),
 	Configuration = Configuration,
 	Files = Files,
 
@@ -82,6 +77,7 @@ Files:LoadModules(Modules, {
 --// ReGui Create window
 local Window = Ui:CreateMainWindow()
 
+--// Check if Sigma spy is supported
 local Supported = Process:CheckIsSupported()
 if not Supported then 
 	Window:Close()
@@ -131,9 +127,6 @@ local EnablePatches = Ui:AskUser({
 	},
 	Options = {"Yes", "No"}
 }) == "Yes"
-
---// NEW: Wait a bit so UI is fully ready before hooks start
-task.wait(Configuration.InitialDelay)
 
 --// Begin hooks
 Event:Fire("BeginHooks", {
